@@ -221,4 +221,3 @@ if __name__ == "__main__":
     frame = MyFrame()
     frame.Show()
     app.MainLoop()
-    os.system("pause")
