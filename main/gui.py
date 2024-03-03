@@ -146,7 +146,7 @@ class MyFrame(wx.Frame):
     def onSavingDirChooserButtonClicked(self, event):
         dialog = wx.DirDialog(
             self.panel,
-            "选择游戏存档文件夹，通常位置是文档/euro truck simulator2/",
+            "选择游戏存档文件夹，通常位置是 文档/euro truck simulator2/profiles",
             "",
             wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST,
         )
@@ -156,13 +156,23 @@ class MyFrame(wx.Frame):
                 if str(dialog.GetPath()).endswith("\\")
                 else dialog.GetPath() + "\\"
             )
-            self.savingdirText.SetValue(folder_path)
+            if not folder_path.endswith(
+                "Documents\\Euro Truck Simulator 2\\profiles\\"
+            ):
+                wx.MessageBox(
+                    "目录选择错误，请注意查看选择器上方的提示\n位置是 文档/euro truck simulator2/profiles",
+                    "目录选择错误",
+                    wx.OK | wx.ICON_ERROR,
+                )
+                self.onSavingDirChooserButtonClicked(event)
+            else:
+                self.savingdirText.SetValue(folder_path)
         dialog.Destroy()
 
     def onGameDirChooserButtonClicked(self, event):
         dialog = wx.DirDialog(
             self.panel,
-            "选择游戏路径文件夹，通常位置是Steam/steamapps/common/Euro Truck Simulator 2/",
+            "选择游戏路径文件夹，通常位置是Steam/steamapps/common/Euro Truck Simulator 2",
             "",
             wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST,
         )
@@ -172,8 +182,16 @@ class MyFrame(wx.Frame):
                 if str(dialog.GetPath()).endswith("\\")
                 else dialog.GetPath() + "\\"
             )
-            self.gamedirText.SetValue(folder_path)
-        dialog.Destroy()
+            if not folder_path.endswith("\\common\\Euro Truck Simulator 2\\"):
+                wx.MessageBox(
+                    "目录选择错误，请注意查看选择器上方的提示\n位置是Steam/steamapps/common/Euro Truck Simulator 2",
+                    "目录选择错误",
+                    wx.OK | wx.ICON_ERROR,
+                )
+                self.onGameDirChooserButtonClicked(event)
+            else:
+                self.gamedirText.SetValue(folder_path)
+            dialog.Destroy()
 
     def ShowSetting(self):
         setting = settingLoad()
