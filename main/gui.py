@@ -2,6 +2,7 @@ import wx
 from wget import download
 from settings import *
 from filehandle import *
+import wx.adv
 
 
 dlcs = Dlcload()
@@ -59,7 +60,7 @@ class MyFrame(wx.Frame):
         File = findZipfile()
         if os.path.exists(GAME_DIR + "changed.json"):
             wx.MessageBox(
-                "请先卸载再安装\n如果卸载没用，请尝试清理",
+                "请先卸载再安装\n如果卸载没用，请尝试清理"
                 "请先卸载",
                 wx.OK | wx.ICON_ERROR,
             )
